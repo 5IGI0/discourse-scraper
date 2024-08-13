@@ -1,5 +1,6 @@
 import db_drivers
 import requests
+from ScrapeSession import ScrapeSession
 
 POST_BY_REQUEST=30
 
@@ -13,7 +14,7 @@ def iterate_on_pages(sess, *args, **kwargs):
 
 def scrape(output, driver_name, url):
     print(f"scraping {url}...")
-    sess = requests.Session()
+    sess = ScrapeSession()
 
     driver = db_drivers.drivers[driver_name](output, url)
     last_topic_id = driver.get_last_topic_id()

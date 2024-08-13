@@ -4,7 +4,7 @@ forum discourse scraper, fairly basic but still usable
 
 ## TODO
 
-- [ ] retry on ratelimit
+- [X] retry on ratelimit
 - [ ] support authentication
 - [ ] add "rescrape option" (so we can fetch updates)
 - [ ] add optional user profile picture scrape
