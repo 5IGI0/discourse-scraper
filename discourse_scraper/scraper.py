@@ -30,7 +30,7 @@ def scrape(output, driver_name, url):
                 has_reached_topic_id = True
             driver.save_topic(topic, False)
         
-        print(f"[discovery] page {i+1} done.")
+        print(f"[discovery] page {page_id+1} done.")
         if has_reached_topic_id:
             break
     driver.flush()
@@ -70,7 +70,7 @@ def scrape(output, driver_name, url):
                 print(f"[scraping] topic {topic['id']} has new posts")
                 retrieve_topic_posts(topic['id'])
 
-        print(f"[scraping] page {i+1} done.")
+        print(f"[scraping] page {page_id+1} done.")
 
     not_full_users = []
     print("[user-enumeration] enumerating users")
@@ -89,7 +89,7 @@ def scrape(output, driver_name, url):
                 not_full_users.append((user["id"], user["username"]))
         driver.flush()
 
-        print(f"[user-enumeration] page {i+1} done.")
+        print(f"[user-enumeration] page {page_id+1} done.")
 
     print("[full-user-scraping] scrapping new users data...")
     for user in not_full_users:
