@@ -19,6 +19,9 @@ def scrape(output, driver_name, url):
     driver = db_drivers.drivers[driver_name](output, url)
     last_topic_id = driver.get_last_topic_id()
 
+    driver.save_basic_info(sess.get(url+"/site/basic-info.json").json())
+    driver.save_categories(sess.get(url+"/categories.json", params={"include_subcategories": "true"}).json()["category_list"]["categories"])
+
     for data, page_id in iterate_on_pages(sess, url+"/latest.json", params={"ascending": "false", "order": "created"}):
         has_reached_topic_id = False
         if len(data["topic_list"]["topics"]) == 0:

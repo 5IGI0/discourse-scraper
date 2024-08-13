@@ -13,11 +13,21 @@ class FileSystemDriver(object):
 
         self.data = {"last_topic_id": None, "topics_highest_post_number": {}}
         try:
-            with open(self.dirname+"/infos.json", "r") as fp:
+            with open(self.dirname+"/state-info.json", "r") as fp:
                 self.data = json.load(fp)
         except FileNotFoundError:
             pass
 
+    def save_basic_info(self, info):
+        info_str = json.dumps(info)
+        with open(self.dirname+"/info.json", "w") as fp:
+            fp.write(info_str)
+
+    def save_categories(self, categories):
+        categories_str = json.dumps(categories)
+        with open(self.dirname+"/categories.json", "w") as fp:
+            fp.write(categories_str)
+    
     def __get_topic_dir_by_id(self, topic_id: int) -> str:
         return self.dirname+f"/topics/{int(int(topic_id)/100)}/{topic_id}/"
 
@@ -91,7 +101,7 @@ class FileSystemDriver(object):
 
     def flush(self):
         infos_str = json.dumps(self.data)
-        with open(self.dirname+"/infos.json", "w") as fp:
+        with open(self.dirname+"/state-info.json", "w") as fp:
             fp.write(infos_str)
 
     def close(self):
